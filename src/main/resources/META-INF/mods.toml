@@ -1,0 +1,27 @@
+modLoader="javafml"
+loaderVersion="[34,)"
+issueTrackerURL="https://github.com/mries92/Bounce/issues"
+showAsResourcePack=false
+license="MIT"
+
+[[mods]]
+    modId="bounce"
+    version="${file.jarVersion}"
+    displayName="Bounce"
+    logoFile="assets/bounce/textures/logo.png"
+    authors="REEEfactor"
+    description="Adds pogo sticks!"
+
+    [[dependencies.examplemod]]
+        modId="forge"
+        mandatory=true
+        versionRange="[34,)"
+        ordering="NONE"
+        side="BOTH"
+
+    [[dependencies.examplemod]]
+        modId="minecraft"
+        mandatory=true
+        versionRange="[1.16.5]"
+        ordering="NONE"
+        side="BOTH"
