@@ -6,20 +6,20 @@ license="MIT"
 
 [[mods]]
     modId="bounce"
-    version="${file.jarVersion}"
+    version="1.0.0-alpha"
     displayName="Bounce"
-    logoFile="assets/bounce/textures/logo.png"
+    logoFile="wooden_pogo_stick.png"
     authors="REEEfactor"
     description="Adds pogo sticks!"
 
-    [[dependencies.examplemod]]
+    [[dependencies.bounce]]
         modId="forge"
         mandatory=true
         versionRange="[34,)"
         ordering="NONE"
         side="BOTH"
 
-    [[dependencies.examplemod]]
+    [[dependencies.bounce]]
         modId="minecraft"
         mandatory=true
         versionRange="[1.16.5]"
