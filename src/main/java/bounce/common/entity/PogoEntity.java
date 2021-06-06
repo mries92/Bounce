@@ -1,4 +1,4 @@
-package bounce.client.entities;
+package bounce.common.entity;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -7,19 +7,18 @@ import net.minecraft.network.IPacket;
 import net.minecraft.world.World;
 
 public class PogoEntity extends Entity {
-    public PogoEntity(EntityType<?> type, World world) {
+    public PogoEntity(EntityType<PogoEntity> type, World world) {
         super(type, world);
     }
 
     @Override
     public void tick()
     {
-
+        super.tick();
     }
 
     @Override
     protected void defineSynchedData() {
-
     }
 
     @Override
@@ -37,3 +36,4 @@ public class PogoEntity extends Entity {
         return null;
     }
 }
+

@@ -5,12 +5,6 @@
 		"1": "bounce:item/wood",
 		"particle": "bounce:item/metal"
 	},
-	"display": {
-		"gui": {
-			"scale": [0.5,0.5,0.5],
-			"translation": [0,-4,0]
-		}
-	},
 	"elements": [
 		{
 			"name": "shaft",
@@ -78,6 +72,12 @@
 			}
 		}
 	],
+	"display": {
+		"gui": {
+			"translation": [0, -4, 0],
+			"scale": [0.5, 0.5, 0.5]
+		}
+	},
 	"groups": [
 		{
 			"name": "group",
