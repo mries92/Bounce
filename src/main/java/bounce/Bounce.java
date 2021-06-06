@@ -35,7 +35,7 @@ public class Bounce {
     }
 
     private void onClientSetup(FMLClientSetupEvent event) {
-        RenderingRegistry.registerEntityRenderingHandler(POGO_ENTITY.get(), manager -> new PogoModelRenderer(manager));
+        RenderingRegistry.registerEntityRenderingHandler(POGO_ENTITY.get(), PogoModelRenderer::new);
     }
 
     private void onCommonSetup(FMLCommonSetupEvent event) {
