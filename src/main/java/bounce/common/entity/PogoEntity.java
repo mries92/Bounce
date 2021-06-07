@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -14,6 +15,7 @@ public class PogoEntity extends Entity {
 
     public PogoEntity(EntityType<PogoEntity> type, World world) {
         super(type, world);
+        this.setNoGravity(false);
     }
 
     @Override
@@ -23,6 +25,11 @@ public class PogoEntity extends Entity {
         super.tick();
         if(!this.hasPassenger(PlayerEntity.class))
             this.remove();
+    }
+
+    @Override
+    public void positionRider(Entity rider) {
+        rider.setPos(this.getX(), this.getY() - 1.4, this.getZ() - .2);
     }
 
     @Override

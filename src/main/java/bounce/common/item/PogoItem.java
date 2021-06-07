@@ -7,6 +7,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockPosWrapper;
 import net.minecraft.world.World;
 
 public class PogoItem extends Item {
@@ -18,6 +20,7 @@ public class PogoItem extends Item {
     public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
         if(!world.isClientSide()) {
             PogoEntity ent = new PogoEntity(Bounce.POGO_ENTITY.get(), world);
+            ent.setPos(player.position().x, player.position().y + player.getEyeHeight(), player.position().z);
             player.startRiding(ent);
             boolean success = world.addFreshEntity(ent);
         }

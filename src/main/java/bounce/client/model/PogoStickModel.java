@@ -25,11 +25,12 @@ public class PogoStickModel extends SegmentedModel<PogoEntity> {
 	public PogoStickModel() {
 		modelRenderers = new ModelRenderer[]{(
 				new ModelRenderer(this, 0, 0)).setTexSize(128, 64)};
-		modelRenderers[0].texOffs(0, 3).addBox(-10.0F, -29.0F, 7.0F, 3.0F, 22.0F, 3.0F, 0.0F, false);
-		modelRenderers[0].texOffs(0, 1).addBox(-13.0F, -29.0F, 8.0F, 9.0F, 1.0F, 1.0F, 0.0F, false);
-		modelRenderers[0].texOffs(0, 1).addBox(-12.0F, -10.0F, 8.0F, 7.0F, 1.0F, 1.0F, 0.0F, false);
-		modelRenderers[0].texOffs(0, 1).addBox(-9.0F, -8.0F, 8.0F, 1.0F, 5.0F, 1.0F, 0.0F, false);
-		modelRenderers[0].texOffs(0, 3).addBox(-10.0F, -7.0F, 7.0F, 3.0F, 1.0F, 3.0F, 0.0F, false);
+		modelRenderers[0].texOffs(0, 3).addBox(-2.0F, -26.0F, -1.0F, 3.0F, 22.0F, 3.0F, 0.0F, false);
+		modelRenderers[0].texOffs(0, 1).addBox(-5.0F, -26.0F, 0.0F, 9.0F, 1.0F, 1.0F, 0.0F, false);
+		modelRenderers[0].texOffs(0, 1).addBox(-4.0F, -7.0F, 0.0F, 7.0F, 1.0F, 1.0F, 0.0F, false);
+		modelRenderers[0].texOffs(0, 1).addBox(-1.0F, -5.0F, 0.0F, 1.0F, 5.0F, 1.0F, 0.0F, false);
+		modelRenderers[0].texOffs(0, 3).addBox(-2.0F, -4.0F, -1.0F, 3.0F, 1.0F, 3.0F, 0.0F, false);
+
 		ImmutableList.Builder<ModelRenderer> builder = ImmutableList.builder();
 		builder.addAll(Arrays.asList(modelRenderers));
 		this.parts = builder.build();
