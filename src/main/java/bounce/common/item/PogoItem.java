@@ -17,7 +17,9 @@ public class PogoItem extends Item {
     @Override
     public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
         if(!world.isClientSide()) {
-            boolean success = world.addFreshEntity(new PogoEntity(Bounce.POGO_ENTITY.get(), world));
+            PogoEntity ent = new PogoEntity(Bounce.POGO_ENTITY.get(), world);
+            player.startRiding(ent);
+            boolean success = world.addFreshEntity(ent);
         }
         return super.use(world, player, hand);
     }
