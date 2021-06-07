@@ -1,30 +1,37 @@
 package bounce.common.entity;
 
-import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.MoverType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 public class PogoEntity extends Entity {
-    private PlayerEntity owner;
-
     public PogoEntity(EntityType<PogoEntity> type, World world) {
         super(type, world);
         this.setNoGravity(false);
+        this.setDeltaMovement(0,-.001D,0);
     }
 
     @Override
-    public void tick()
-    {
-        //this.setPacketCoordinates(owner.position());
+    public void tick() {
         super.tick();
-        if(!this.hasPassenger(PlayerEntity.class))
+        if (!this.hasPassenger(PlayerEntity.class))
             this.remove();
+        if (this.level.isStateAtPosition(this.blockPosition().below(), BlockState::isAir))
+        {
+            Vector3d delta = this.getDeltaMovement();
+            this.setDeltaMovement(new Vector3d(0, delta.y - .04D,0));
+        } else {
+            this.setDeltaMovement(new Vector3d(0,.8,0));
+        }
+        this.move(MoverType.SELF, getDeltaMovement());
     }
 
     @Override
@@ -51,4 +58,5 @@ public class PogoEntity extends Entity {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }
+
 
