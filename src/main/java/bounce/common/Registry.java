@@ -33,7 +33,7 @@ public class Registry {
         GOLD_POGO_STICK = ITEM_REGISTRY.register("gold_pogo_stick",  () -> new PogoItem(new Item.Properties().tab(ItemGroup.TAB_TRANSPORTATION).stacksTo(0).durability(300)));
         DIAMOND_POGO_STICK = ITEM_REGISTRY.register("diamond_pogo_stick",  () -> new PogoItem(new Item.Properties().tab(ItemGroup.TAB_TRANSPORTATION).stacksTo(0).durability(400)));
 
-        POGO_ENTITY_TYPE = ENTITY_REGISTRY.register("wooden_pogo_stick", () -> EntityType.Builder.<PogoEntity>of(PogoEntity::new, EntityClassification.MISC).build("wooden_pogo_stick"));
+        POGO_ENTITY_TYPE = ENTITY_REGISTRY.register("pogo_stick", () -> EntityType.Builder.of(PogoEntity::new, EntityClassification.MISC).build("pogo_stick"));
 
         ITEM_REGISTRY.register(FMLJavaModLoadingContext.get().getModEventBus());
         ENTITY_REGISTRY.register(FMLJavaModLoadingContext.get().getModEventBus());

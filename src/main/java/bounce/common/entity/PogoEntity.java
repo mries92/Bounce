@@ -50,7 +50,7 @@ public class PogoEntity extends Entity {
 
     @Override
     public void positionRider(Entity rider) {
-        rider.setPos(this.getX(), this.getY() - 1.4, this.getZ() - .2);
+        rider.setPos(this.getX(), this.getY() - .9, this.getZ() - .2);
     }
 
     @Override
