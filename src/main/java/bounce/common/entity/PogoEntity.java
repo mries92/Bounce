@@ -13,10 +13,24 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 public class PogoEntity extends Entity {
-    public PogoEntity(EntityType<PogoEntity> type, World world) {
-        super(type, world);
+    public static enum Type {
+        WOOD,
+        IRON,
+        GOLD,
+        DIAMOND
+    }
+
+    Type type;
+
+    public PogoEntity(EntityType<PogoEntity> entityType, World world) {
+        super(entityType, world);
+        this.type = Type.WOOD;
         this.setNoGravity(false);
         this.setDeltaMovement(0,-.001D,0);
+    }
+
+    void setType(Type type) {
+        this.type = type;
     }
 
     @Override

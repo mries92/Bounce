@@ -1,6 +1,7 @@
 package bounce.common.item;
 
 import bounce.Bounce;
+import bounce.common.Registry;
 import bounce.common.entity.PogoEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -19,7 +20,7 @@ public class PogoItem extends Item {
     @Override
     public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
         if(!world.isClientSide()) {
-            PogoEntity ent = new PogoEntity(Bounce.POGO_ENTITY.get(), world);
+            PogoEntity ent = new PogoEntity(Registry.POGO_ENTITY_TYPE.get(), world);
             ent.setPos(player.position().x, player.position().y + player.getEyeHeight(), player.position().z);
             player.startRiding(ent);
             boolean success = world.addFreshEntity(ent);
