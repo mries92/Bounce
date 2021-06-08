@@ -7,7 +7,7 @@ import net.minecraft.entity.MoverType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -21,6 +21,7 @@ public class PogoEntity extends Entity {
     }
 
     Type type;
+    private float deltaRotation;
 
     public PogoEntity(EntityType<PogoEntity> entityType, World world) {
         super(entityType, world);
@@ -35,22 +36,30 @@ public class PogoEntity extends Entity {
 
     @Override
     public void tick() {
-        super.tick();
         if (!this.hasPassenger(PlayerEntity.class))
             this.remove();
-        if (this.level.isStateAtPosition(this.blockPosition().below(), BlockState::isAir))
-        {
-            Vector3d delta = this.getDeltaMovement();
-            this.setDeltaMovement(new Vector3d(0, delta.y - .04D,0));
-        } else {
-            this.setDeltaMovement(new Vector3d(0,.8,0));
+        else {
+            if (this.level.isStateAtPosition(this.blockPosition().below(), BlockState::isAir))
+            {
+                Vector3d delta = this.getDeltaMovement();
+                this.setDeltaMovement(new Vector3d(0, delta.y - .04D,0));
+            } else {
+                this.setDeltaMovement(new Vector3d(0,.8,0));
+            }
+            this.yRot = MathHelper.wrapDegrees(getPassengers().get(0).yRot);
+            this.move(MoverType.SELF, getDeltaMovement());
         }
-        this.move(MoverType.SELF, getDeltaMovement());
+        super.tick();
     }
 
     @Override
     public void positionRider(Entity rider) {
-        rider.setPos(this.getX(), this.getY() - .9, this.getZ() - .2);
+        float angle = (float)Math.toRadians(-this.yRot);
+        float offset = .2f;
+        rider.setPos(
+                this.getX() - (offset * MathHelper.sin(angle)),
+                this.getY() - .9,
+                this.getZ() - (offset * MathHelper.cos(angle)));
     }
 
     @Override

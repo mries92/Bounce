@@ -26,13 +26,14 @@ public class PogoModelRenderer extends EntityRenderer<PogoEntity> {
     }
 
     @Override
-    public void render(PogoEntity entity, float p_225623_2_, float p_225623_3_, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int p_225623_6_) {
+    public void render(PogoEntity entity, float yRot, float p_225623_3_, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int p_225623_6_) {
         matrixStack.pushPose();
         IVertexBuilder vertexBuilder = renderTypeBuffer.getBuffer(this.model.renderType(this.getTextureLocation(entity)));
         matrixStack.mulPose(Vector3f.ZP.rotationDegrees(180));
+        matrixStack.mulPose(Vector3f.YP.rotationDegrees(180.0F + yRot));
         this.model.renderToBuffer(matrixStack, vertexBuilder, p_225623_6_, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
         matrixStack.popPose();
-        super.render(entity, p_225623_2_, p_225623_3_, matrixStack, renderTypeBuffer, p_225623_6_);
+        super.render(entity, yRot, p_225623_3_, matrixStack, renderTypeBuffer, p_225623_6_);
     }
 
     @Override
