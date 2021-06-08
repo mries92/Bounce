@@ -1,7 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "bounce:item/metal",
+		"0": "bounce:item/wooden_pogo_stick",
 		"1": "bounce:item/wood",
 		"particle": "bounce:item/metal"
 	},

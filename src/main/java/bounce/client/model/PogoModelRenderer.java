@@ -37,6 +37,6 @@ public class PogoModelRenderer extends EntityRenderer<PogoEntity> {
 
     @Override
     public ResourceLocation getTextureLocation(PogoEntity p_110775_1_) {
-        return new ResourceLocation("bounce:textures/item/metal.png");
+        return new ResourceLocation("bounce:textures/entity/wooden_pogo_stick.png");
     }
 }
