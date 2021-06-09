@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -23,6 +24,7 @@ public class PogoEntity extends Entity {
 
     Type type;
     private float speed;
+    private float leanAmount = 5;
     public float zRot = 0;
 
     public PogoEntity(EntityType<PogoEntity> entityType, World world) {
@@ -46,46 +48,29 @@ public class PogoEntity extends Entity {
         if (!hasPassenger(PlayerEntity.class))
             remove();
         else {
-            float xInput = 0, zInput = 0;
-
             // Handle gravity
-            if (level.isStateAtPosition(blockPosition().below(), BlockState::isAir))
-            {
+            if (level.isStateAtPosition(blockPosition().below(), BlockState::isAir)) {
                 setDeltaMovement(getDeltaMovement().subtract(0,  .04D,0));
             } else {
                 setDeltaMovement(new Vector3d(0,.5,0));
             }
 
             // Handle input
-            if(Minecraft.getInstance().player.input.up) {
-                zInput = 1;
-                xRot = 5;
-            }
-            if(Minecraft.getInstance().player.input.down) {
-                zInput = -1;
-                xRot = -5;
-            }
-            if(Minecraft.getInstance().player.input.right) {
-                xInput = 1;
-                zRot = -5;
-            }
-            if(Minecraft.getInstance().player.input.left) {
-                xInput = -1;
-                zRot = 5;
-            }
+            Vector2f input = Minecraft.getInstance().player.input.getMoveVector();
+            xRot = input.y * leanAmount;
+            zRot = input.x * leanAmount;
 
             // Add input angle to rotation to get final movement vector
-            float inputAngle = (float)Math.toDegrees(MathHelper.atan2(xInput, zInput));
-            float finalAngle = inputAngle + yRot;
+            if(input.x != 0 || input.y != 0) {
+                float inputAngle = (float)Math.toDegrees(MathHelper.atan2(-input.x, input.y));
+                float finalAngle = inputAngle + yRot;
 
-            if(xInput != 0 || zInput != 0) {
                 float xComp = MathHelper.sin(-finalAngle * ((float)Math.PI / 180F)) * speed;
                 float zComp = MathHelper.cos(finalAngle * ((float)Math.PI / 180F)) * speed;
                 this.setDeltaMovement(getDeltaMovement().add(xComp, 0.0D, zComp));
-            } else {
-                xRot = 0; zRot = 0;
             }
 
+            // Rotate and move
             yRot = MathHelper.wrapDegrees(getPassengers().get(0).yRot);
             move(MoverType.SELF, getDeltaMovement());
         }
