@@ -7,6 +7,7 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemTier;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -28,10 +29,10 @@ public class Registry {
     public static RegistryObject<EntityType<PogoEntity>> POGO_ENTITY_TYPE;
 
     public static void registerAll() {
-        WOODEN_POGO_STICK = ITEM_REGISTRY.register("wooden_pogo_stick",  () -> new PogoItem(new Item.Properties().tab(ItemGroup.TAB_TRANSPORTATION).stacksTo(0).durability(100)));
-        IRON_POGO_STICK = ITEM_REGISTRY.register("iron_pogo_stick",  () -> new PogoItem(new Item.Properties().tab(ItemGroup.TAB_TRANSPORTATION).stacksTo(0).durability(200)));
-        GOLD_POGO_STICK = ITEM_REGISTRY.register("gold_pogo_stick",  () -> new PogoItem(new Item.Properties().tab(ItemGroup.TAB_TRANSPORTATION).stacksTo(0).durability(300)));
-        DIAMOND_POGO_STICK = ITEM_REGISTRY.register("diamond_pogo_stick",  () -> new PogoItem(new Item.Properties().tab(ItemGroup.TAB_TRANSPORTATION).stacksTo(0).durability(400)));
+        WOODEN_POGO_STICK = ITEM_REGISTRY.register("wooden_pogo_stick",  () -> new PogoItem(ItemTier.WOOD ,new Item.Properties().tab(ItemGroup.TAB_TRANSPORTATION).stacksTo(0).durability(100)));
+        IRON_POGO_STICK = ITEM_REGISTRY.register("iron_pogo_stick",  () -> new PogoItem(ItemTier.IRON ,new Item.Properties().tab(ItemGroup.TAB_TRANSPORTATION).stacksTo(0).durability(200)));
+        GOLD_POGO_STICK = ITEM_REGISTRY.register("golden_pogo_stick",  () -> new PogoItem(ItemTier.GOLD ,new Item.Properties().tab(ItemGroup.TAB_TRANSPORTATION).stacksTo(0).durability(300)));
+        DIAMOND_POGO_STICK = ITEM_REGISTRY.register("diamond_pogo_stick",  () -> new PogoItem(ItemTier.DIAMOND ,new Item.Properties().tab(ItemGroup.TAB_TRANSPORTATION).stacksTo(0).durability(400)));
 
         POGO_ENTITY_TYPE = ENTITY_REGISTRY.register("pogo_stick", () -> EntityType.Builder.of(PogoEntity::new, EntityClassification.MISC).build("pogo_stick"));
 

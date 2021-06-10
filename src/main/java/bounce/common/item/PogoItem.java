@@ -7,15 +7,17 @@ import net.minecraft.entity.Pose;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTier;
+import net.minecraft.item.TieredItem;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPosWrapper;
 import net.minecraft.world.World;
 
-public class PogoItem extends Item {
-    public PogoItem(Properties properties) {
-        super(properties);
+public class PogoItem extends TieredItem {
+    public PogoItem(ItemTier tier, Properties properties) {
+        super(tier, properties);
     }
 
     @Override

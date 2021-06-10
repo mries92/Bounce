@@ -1,14 +1,13 @@
 package bounce.common.entity;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
+import net.minecraft.item.IItemTier;
+import net.minecraft.item.ItemTier;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.math.MathHelper;
@@ -18,27 +17,18 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 public class PogoEntity extends Entity {
-    public static enum Type {
-        WOOD,
-        IRON,
-        GOLD,
-        DIAMOND
-    }
-
-    Type type;
-    private float speed;
+    private IItemTier itemTier = ItemTier.WOOD;
+    private float speed = .01f;
     private float leanAmount = 5;
     public float zRot = 0;
 
     public PogoEntity(EntityType<PogoEntity> entityType, World world) {
         super(entityType, world);
-        type = Type.WOOD;
-        speed = .01f;
         this.setDeltaMovement(0,-.001D,0);
     }
 
-    void setType(Type type) {
-        this.type = type;
+    public void setItemTier(IItemTier tier) {
+        this.itemTier = tier;
     }
 
     @Override
@@ -91,7 +81,7 @@ public class PogoEntity extends Entity {
         float offset = .2f;
         rider.setPos(
                 getX() - (offset * MathHelper.sin(angle)),
-                getY() - .9,
+                getY(),
                 getZ() - (offset * MathHelper.cos(angle)));
     }
 
