@@ -1,11 +1,14 @@
 package bounce.common.entity;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.math.MathHelper;
@@ -49,8 +52,14 @@ public class PogoEntity extends Entity {
             remove();
         else {
             // Handle gravity
-            if (level.isStateAtPosition(blockPosition().below(), BlockState::isAir)) {
+            FluidState fluidState = level.getFluidState(blockPosition().below());
+            if (level.isStateAtPosition(blockPosition().below(), blockState -> blockState.getCollisionShape(level, blockPosition().below()).isEmpty()) && fluidState.isEmpty()) {
                 setDeltaMovement(getDeltaMovement().subtract(0,  .04D,0));
+            } else if (!fluidState.isEmpty()) {
+                if (getDeltaMovement().y < -.1)
+                    setDeltaMovement(getDeltaMovement().x, -.1, getDeltaMovement().z);
+                else
+                    setDeltaMovement(getDeltaMovement().subtract(0,  .0004D,0));
             } else {
                 setDeltaMovement(new Vector3d(0,.5,0));
             }
