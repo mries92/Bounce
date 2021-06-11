@@ -11,7 +11,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 public class PogoItem extends TieredItem {
-    public Float jumpHeight = 0.0f;
+    public Float jumpHeight;
 
     public PogoItem(ItemTier tier, Float jumpHeight, Properties properties) {
         super(tier, properties);

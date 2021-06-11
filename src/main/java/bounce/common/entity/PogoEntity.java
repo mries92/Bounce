@@ -1,6 +1,9 @@
 package bounce.common.entity;
 
 import bounce.common.util.Serializers;
+import mcp.MethodsReturnNonnullByDefault;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.LilyPadBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -14,7 +17,12 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.shapes.IBooleanFunction;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
@@ -23,7 +31,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 public class PogoEntity extends Entity {
     // Member vars
     private float speed = .01f;
-    private float leanAmount = 2;
+    private float leanAmount = .5f;
     public float zRot = 0;
 
     // Data parameters
@@ -50,7 +58,7 @@ public class PogoEntity extends Entity {
         else {
             // Handle gravity
             FluidState fluidState = level.getFluidState(blockPosition());
-            if (level.isStateAtPosition(blockPosition(), blockState -> blockState.getCollisionShape(level, blockPosition()).isEmpty()) && fluidState.isEmpty()) {
+            if (!checkCollision() && fluidState.isEmpty()) {
                 setDeltaMovement(getDeltaMovement().subtract(0,  .04D,0));
             } else if (!fluidState.isEmpty()) {
                 if (getDeltaMovement().y < -.1)
@@ -85,7 +93,26 @@ public class PogoEntity extends Entity {
     public void positionRider(Entity rider) {
         float angle = (float)Math.toRadians(-yRot);
         float offset = .2f;
-        rider.setPos(getX() - (offset * MathHelper.sin(angle)), getY(), getZ() - (offset * MathHelper.cos(angle)));
+        rider.setPos(getX() - (offset * MathHelper.sin(angle)), getY() + .3, getZ() - (offset * MathHelper.cos(angle)));
+    }
+
+    private Boolean checkCollision() {
+        AxisAlignedBB axisalignedbb = this.getBoundingBox();
+        AxisAlignedBB axisalignedbb1 = new AxisAlignedBB(axisalignedbb.minX, axisalignedbb.minY - 0.001D, axisalignedbb.minZ, axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.maxZ);
+        int minX = MathHelper.floor(axisalignedbb1.minX);
+        int maxX = MathHelper.ceil(axisalignedbb1.maxX);
+        int minZ = MathHelper.floor(axisalignedbb1.minZ);
+        int maxZ = MathHelper.ceil(axisalignedbb1.maxZ);
+        BlockPos.Mutable blockPos = new BlockPos.Mutable();
+        for(int i = minX; i < maxX; i++) {
+            for(int j = minZ; j < maxZ; j++) {
+                blockPos.set(i, axisalignedbb1.minY, j);
+                BlockState blockstate = this.level.getBlockState(blockPos);
+                if(!blockstate.getCollisionShape(level, blockPosition()).isEmpty())
+                    return true;
+            }
+        }
+        return false;
     }
 
 
@@ -130,7 +157,6 @@ public class PogoEntity extends Entity {
     public Float getJumpHeight() {
         return this.entityData.get(jumpHeight);
     }
-
 }
 
 
