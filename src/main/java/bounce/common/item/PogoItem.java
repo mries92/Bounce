@@ -25,6 +25,7 @@ public class PogoItem extends TieredItem {
         if(!world.isClientSide()) {
             PogoEntity ent = new PogoEntity(Registry.POGO_ENTITY_TYPE.get(), world);
             ent.setPos(player.position().x, player.position().y, player.position().z);
+            ent.setItemTier(this.getTier());
             player.startRiding(ent);
             boolean success = world.addFreshEntity(ent);
         }

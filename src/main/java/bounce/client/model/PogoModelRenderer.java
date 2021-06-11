@@ -10,6 +10,8 @@ import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.IItemTier;
+import net.minecraft.item.ItemTier;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
@@ -40,6 +42,12 @@ public class PogoModelRenderer extends EntityRenderer<PogoEntity> {
 
     @Override
     public ResourceLocation getTextureLocation(PogoEntity p_110775_1_) {
-        return new ResourceLocation("bounce:textures/item/wooden_pogo_stick.png");
+        IItemTier itemTier = p_110775_1_.getItemTier();
+        if(itemTier == ItemTier.WOOD)
+            return new ResourceLocation("bounce:textures/item/wooden_pogo_stick.png");
+        if(itemTier == ItemTier.GOLD)
+            return new ResourceLocation("bounce:textures/item/golden_pogo_stick.png");
+        else
+            return new ResourceLocation("bounce:textures/item/wooden_pogo_stick.png");
     }
 }

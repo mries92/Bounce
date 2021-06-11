@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 public class PogoEntity extends Entity {
-    private IItemTier itemTier = ItemTier.WOOD;
+    private IItemTier itemTier;
     private float speed = .01f;
     private float leanAmount = 5;
     public float zRot = 0;
@@ -26,6 +26,7 @@ public class PogoEntity extends Entity {
         super(entityType, world);
         this.setDeltaMovement(0,-.001D,0);
     }
+    public IItemTier getItemTier() { return this.itemTier; }
 
     public void setItemTier(IItemTier tier) {
         this.itemTier = tier;
