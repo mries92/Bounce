@@ -1,18 +1,13 @@
 package bounce.common.item;
 
-import bounce.Bounce;
 import bounce.common.Registry;
 import bounce.common.entity.PogoEntity;
-import net.minecraft.entity.Pose;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTier;
 import net.minecraft.item.TieredItem;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockPosWrapper;
 import net.minecraft.world.World;
 
 public class PogoItem extends TieredItem {
@@ -31,7 +26,7 @@ public class PogoItem extends TieredItem {
             ent.setItemTier(this.getTier());
             ent.setJumpHeight(this.jumpHeight);
             player.startRiding(ent);
-            boolean success = world.addFreshEntity(ent);
+            world.addFreshEntity(ent);
         }
         return super.use(world, player, hand);
     }

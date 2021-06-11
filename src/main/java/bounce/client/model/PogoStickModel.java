@@ -4,18 +4,12 @@ package bounce.client.model;// Made with Blockbench 3.8.4
 
 
 import bounce.common.entity.PogoEntity;
-import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.entity.model.SegmentedModel;
-import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import java.util.Arrays;
 
 @OnlyIn(Dist.CLIENT)
 public class PogoStickModel extends EntityModel<PogoEntity> {

@@ -1,7 +1,6 @@
 package bounce.common.entity;
 
 import bounce.common.util.Serializers;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -12,11 +11,9 @@ import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemTier;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.network.datasync.IDataSerializer;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
@@ -24,10 +21,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 public class PogoEntity extends Entity {
+    // Member vars
     private float speed = .01f;
     private float leanAmount = 2;
     public float zRot = 0;
 
+    // Data parameters
     protected static final DataParameter<IItemTier> itemTier = EntityDataManager.defineId(PogoEntity.class, Serializers.ITEM_TIER_DATA_SERIALIZER);
     protected static final DataParameter<Float> jumpHeight = EntityDataManager.defineId(PogoEntity.class, DataSerializers.FLOAT);
     private static final String TAG_ITEM_TIER = "itemTier";
@@ -71,7 +70,6 @@ public class PogoEntity extends Entity {
             if(input.x != 0 || input.y != 0) {
                 float inputAngle = (float)Math.toDegrees(MathHelper.atan2(-input.x, input.y));
                 float finalAngle = inputAngle + yRot;
-
                 float xComp = MathHelper.sin(-finalAngle * ((float)Math.PI / 180F)) * speed;
                 float zComp = MathHelper.cos(finalAngle * ((float)Math.PI / 180F)) * speed;
                 this.setDeltaMovement(getDeltaMovement().add(xComp, 0.0D, zComp));
@@ -87,12 +85,11 @@ public class PogoEntity extends Entity {
     public void positionRider(Entity rider) {
         float angle = (float)Math.toRadians(-yRot);
         float offset = .2f;
-        rider.setPos(
-                getX() - (offset * MathHelper.sin(angle)),
-                getY(),
-                getZ() - (offset * MathHelper.cos(angle)));
+        rider.setPos(getX() - (offset * MathHelper.sin(angle)), getY(), getZ() - (offset * MathHelper.cos(angle)));
     }
 
+
+    /* DataParameter handlers */
     @Override
     protected void defineSynchedData() {
         this.entityData.define(itemTier, ItemTier.WOOD);
@@ -117,7 +114,7 @@ public class PogoEntity extends Entity {
     }
 
 
-    /* EntityData accessors */
+    /* DataParameter accessors */
     public void setItemTier(IItemTier tier) {
         this.entityData.set(itemTier, tier);
     }

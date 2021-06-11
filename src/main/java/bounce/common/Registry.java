@@ -3,7 +3,6 @@ package bounce.common;
 import bounce.common.entity.PogoEntity;
 import bounce.common.item.PogoItem;
 import bounce.common.util.Serializers;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
@@ -14,9 +13,6 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Registry {
     private static final String modId = "bounce";
