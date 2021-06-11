@@ -1,5 +1,6 @@
 package bounce.common.entity;
 
+import bounce.common.util.Serializers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -10,6 +11,11 @@ import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemTier;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.network.datasync.IDataSerializer;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
@@ -17,19 +23,21 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 public class PogoEntity extends Entity {
-    private IItemTier itemTier;
     private float speed = .01f;
     private float leanAmount = 5;
     public float zRot = 0;
+    protected static final DataParameter<IItemTier> itemTier = EntityDataManager.defineId(PogoEntity.class, Serializers.ITEM_TIER_DATA_SERIALIZER);
+    private static final String TAG_ITEM_TIER = "itemTier";
+
+    public void setItemTier(IItemTier tier) {
+        this.entityData.set(itemTier, tier);
+    }
+
+    public IItemTier getItemTier() { return this.entityData.get(itemTier); }
 
     public PogoEntity(EntityType<PogoEntity> entityType, World world) {
         super(entityType, world);
         this.setDeltaMovement(0,-.001D,0);
-    }
-    public IItemTier getItemTier() { return this.itemTier; }
-
-    public void setItemTier(IItemTier tier) {
-        this.itemTier = tier;
     }
 
     @Override
@@ -88,22 +96,25 @@ public class PogoEntity extends Entity {
 
     @Override
     protected void defineSynchedData() {
+        this.entityData.define(itemTier, ItemTier.DIAMOND);
     }
 
     @Override
     protected void readAdditionalSaveData(CompoundNBT p_70037_1_) {
-
+        this.entityData.set(itemTier, ItemTier.values()[p_70037_1_.getInt(TAG_ITEM_TIER)]);
     }
 
     @Override
     protected void addAdditionalSaveData(CompoundNBT p_213281_1_) {
-
+        p_213281_1_.putInt(TAG_ITEM_TIER, this.entityData.get(itemTier).getLevel());
     }
 
     @Override
     public IPacket<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
+
+
 }
 
 

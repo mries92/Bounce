@@ -1,7 +1,6 @@
 {
-  "parent": "bounce:item/wooden_pogo_stick",
+  "parent": "item/generated",
   "textures": {
-    "0": "bounce:item/diamond_pogo_stick",
-    "particle": "bounce:item/diamond_pogo_stick"
+    "layer0": "bounce:item/diamond_pogo_stick"
   }
 }

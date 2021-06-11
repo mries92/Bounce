@@ -23,12 +23,14 @@ public class PogoStickModel extends EntityModel<PogoEntity> {
 
 	public PogoStickModel() {
 		root = new ModelRenderer(this, 0, 0).setTexSize(32,32);
-		root.texOffs(12, 17).addBox(-1.0F, -3.0F, 0.0F, 1.0F, 3.0F, 1.0F, 0.0F, false);
-		root.texOffs(12, 15).addBox(-2.0F, -4.0F, 0.0F, 3.0F, 1.0F, 1.0F, 0.0F, false);
+
+		root.texOffs(11, 19).addBox(-1.0F, -3.0F, 0.0F, 1.0F, 3.0F, 1.0F, 0.0F, false);
+		root.texOffs(12, 17).addBox(-2.0F, -4.0F, 0.0F, 3.0F, 1.0F, 1.0F, 0.0F, false);
 		root.texOffs(0, 0).addBox(-2.0F, -21.0F, -1.0F, 3.0F, 17.0F, 3.0F, 0.0F, false);
-		root.texOffs(12, 0).addBox(-3.0F, -20.0F, 0.0F, 5.0F, 12.0F, 1.0F, 0.0F, false);
-		root.texOffs(14, 13).addBox(-4.0F, -5.0F, 0.0F, 7.0F, 1.0F, 1.0F, 0.0F, false);
-		root.texOffs(12, 13).addBox(-5.0F, -21.0F, 0.0F, 9.0F, 1.0F, 1.0F, 0.0F, false);
+		root.texOffs(16, 4).addBox(1.0F, -20.0F, 0.0F, 1.0F, 12.0F, 1.0F, 0.0F, false);
+		root.texOffs(12, 4).addBox(-3.0F, -20.0F, 0.0F, 1.0F, 12.0F, 1.0F, 0.0F, false);
+		root.texOffs(12, 2).addBox(-4.0F, -5.0F, 0.0F, 7.0F, 1.0F, 1.0F, 0.0F, false);
+		root.texOffs(9, 0).addBox(-5.0F, -21.0F, 0.0F, 9.0F, 1.0F, 1.0F, 0.0F, false);
 	}
 
 	@Override

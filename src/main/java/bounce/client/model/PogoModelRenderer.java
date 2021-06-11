@@ -44,10 +44,14 @@ public class PogoModelRenderer extends EntityRenderer<PogoEntity> {
     public ResourceLocation getTextureLocation(PogoEntity p_110775_1_) {
         IItemTier itemTier = p_110775_1_.getItemTier();
         if(itemTier == ItemTier.WOOD)
-            return new ResourceLocation("bounce:textures/item/wooden_pogo_stick.png");
+            return new ResourceLocation("bounce:textures/model/wooden_pogo_stick.png");
+        if(itemTier == ItemTier.IRON)
+            return new ResourceLocation("bounce:textures/model/iron_pogo_stick.png");
         if(itemTier == ItemTier.GOLD)
-            return new ResourceLocation("bounce:textures/item/golden_pogo_stick.png");
+            return new ResourceLocation("bounce:textures/model/golden_pogo_stick.png");
+        if(itemTier == ItemTier.DIAMOND)
+            return new ResourceLocation("bounce:textures/model/diamond_pogo_stick.png");
         else
-            return new ResourceLocation("bounce:textures/item/wooden_pogo_stick.png");
+            return new ResourceLocation("bounce:textures/model/wooden_pogo_stick.png");
     }
 }
