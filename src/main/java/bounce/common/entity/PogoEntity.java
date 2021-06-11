@@ -1,6 +1,7 @@
 package bounce.common.entity;
 
 import bounce.common.util.Serializers;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -24,16 +25,14 @@ import net.minecraftforge.fml.network.NetworkHooks;
 
 public class PogoEntity extends Entity {
     private float speed = .01f;
-    private float leanAmount = 5;
+    private float leanAmount = 2;
     public float zRot = 0;
+
     protected static final DataParameter<IItemTier> itemTier = EntityDataManager.defineId(PogoEntity.class, Serializers.ITEM_TIER_DATA_SERIALIZER);
+    protected static final DataParameter<Float> jumpHeight = EntityDataManager.defineId(PogoEntity.class, DataSerializers.FLOAT);
     private static final String TAG_ITEM_TIER = "itemTier";
+    private static final String TAG_JUMP_HEIGHT = "jumpHeight";
 
-    public void setItemTier(IItemTier tier) {
-        this.entityData.set(itemTier, tier);
-    }
-
-    public IItemTier getItemTier() { return this.entityData.get(itemTier); }
 
     public PogoEntity(EntityType<PogoEntity> entityType, World world) {
         super(entityType, world);
@@ -51,8 +50,8 @@ public class PogoEntity extends Entity {
             remove();
         else {
             // Handle gravity
-            FluidState fluidState = level.getFluidState(blockPosition().below());
-            if (level.isStateAtPosition(blockPosition().below(), blockState -> blockState.getCollisionShape(level, blockPosition().below()).isEmpty()) && fluidState.isEmpty()) {
+            FluidState fluidState = level.getFluidState(blockPosition());
+            if (level.isStateAtPosition(blockPosition(), blockState -> blockState.getCollisionShape(level, blockPosition()).isEmpty()) && fluidState.isEmpty()) {
                 setDeltaMovement(getDeltaMovement().subtract(0,  .04D,0));
             } else if (!fluidState.isEmpty()) {
                 if (getDeltaMovement().y < -.1)
@@ -60,7 +59,7 @@ public class PogoEntity extends Entity {
                 else
                     setDeltaMovement(getDeltaMovement().subtract(0,  .0004D,0));
             } else {
-                setDeltaMovement(new Vector3d(0,.5,0));
+                setDeltaMovement(new Vector3d(0, getJumpHeight(),0));
             }
 
             // Handle input
@@ -96,17 +95,20 @@ public class PogoEntity extends Entity {
 
     @Override
     protected void defineSynchedData() {
-        this.entityData.define(itemTier, ItemTier.DIAMOND);
+        this.entityData.define(itemTier, ItemTier.WOOD);
+        this.entityData.define(jumpHeight, 0.1f);
     }
 
     @Override
-    protected void readAdditionalSaveData(CompoundNBT p_70037_1_) {
-        this.entityData.set(itemTier, ItemTier.values()[p_70037_1_.getInt(TAG_ITEM_TIER)]);
+    protected void readAdditionalSaveData(CompoundNBT nbt) {
+        this.entityData.set(itemTier, ItemTier.values()[nbt.getInt(TAG_ITEM_TIER)]);
+        this.entityData.set(jumpHeight, nbt.getFloat(TAG_JUMP_HEIGHT));
     }
 
     @Override
-    protected void addAdditionalSaveData(CompoundNBT p_213281_1_) {
-        p_213281_1_.putInt(TAG_ITEM_TIER, this.entityData.get(itemTier).getLevel());
+    protected void addAdditionalSaveData(CompoundNBT nbt) {
+        nbt.putInt(TAG_ITEM_TIER, this.entityData.get(itemTier).getLevel());
+        nbt.putFloat(TAG_JUMP_HEIGHT, this.entityData.get(jumpHeight));
     }
 
     @Override
@@ -114,6 +116,23 @@ public class PogoEntity extends Entity {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
+
+    /* EntityData accessors */
+    public void setItemTier(IItemTier tier) {
+        this.entityData.set(itemTier, tier);
+    }
+
+    public IItemTier getItemTier() {
+        return this.entityData.get(itemTier);
+    }
+
+    public void setJumpHeight(Float height) {
+        this.entityData.set(jumpHeight, height);
+    }
+
+    public Float getJumpHeight() {
+        return this.entityData.get(jumpHeight);
+    }
 
 }
 

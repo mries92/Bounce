@@ -16,8 +16,11 @@ import net.minecraft.util.math.BlockPosWrapper;
 import net.minecraft.world.World;
 
 public class PogoItem extends TieredItem {
-    public PogoItem(ItemTier tier, Properties properties) {
+    public Float jumpHeight = 0.0f;
+
+    public PogoItem(ItemTier tier, Float jumpHeight, Properties properties) {
         super(tier, properties);
+        this.jumpHeight = jumpHeight;
     }
 
     @Override
@@ -26,6 +29,7 @@ public class PogoItem extends TieredItem {
             PogoEntity ent = new PogoEntity(Registry.POGO_ENTITY_TYPE.get(), world);
             ent.setPos(player.position().x, player.position().y, player.position().z);
             ent.setItemTier(this.getTier());
+            ent.setJumpHeight(this.jumpHeight);
             player.startRiding(ent);
             boolean success = world.addFreshEntity(ent);
         }
