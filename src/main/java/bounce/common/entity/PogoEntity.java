@@ -93,7 +93,7 @@ public class PogoEntity extends Entity {
     @Override
     public void positionRider(Entity rider) {
         float angle = (float)Math.toRadians(-yRot);
-        float offset = .2f;
+        float offset = .3f;
         rider.setPos(getX() - (offset * MathHelper.sin(angle)), getY() + .3, getZ() - (offset * MathHelper.cos(angle)));
     }
 
