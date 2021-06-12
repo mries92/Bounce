@@ -2,6 +2,7 @@ package bounce.common.item;
 
 import bounce.common.Registry;
 import bounce.common.entity.PogoEntity;
+import net.minecraft.entity.Pose;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTier;
