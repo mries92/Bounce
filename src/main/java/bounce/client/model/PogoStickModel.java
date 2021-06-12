@@ -14,17 +14,50 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class PogoStickModel extends EntityModel<PogoEntity> {
 	public final ModelRenderer root;
+	private final ModelRenderer shaft;
+	private final ModelRenderer base;
+	private final ModelRenderer stand;
+	private final ModelRenderer handle;
 
 	public PogoStickModel() {
-		root = new ModelRenderer(this, 0, 0).setTexSize(32,32);
+		this.texHeight = 64;
+		this.texWidth = 64;
 
-		root.texOffs(11, 19).addBox(-1.0F, -3.0F, 0.0F, 1.0F, 3.0F, 1.0F, 0.0F, false);
-		root.texOffs(12, 17).addBox(-2.0F, -4.0F, 0.0F, 3.0F, 1.0F, 1.0F, 0.0F, false);
-		root.texOffs(0, 0).addBox(-2.0F, -21.0F, -1.0F, 3.0F, 17.0F, 3.0F, 0.0F, false);
-		root.texOffs(16, 4).addBox(1.0F, -20.0F, 0.0F, 1.0F, 12.0F, 1.0F, 0.0F, false);
-		root.texOffs(12, 4).addBox(-3.0F, -20.0F, 0.0F, 1.0F, 12.0F, 1.0F, 0.0F, false);
-		root.texOffs(12, 2).addBox(-4.0F, -5.0F, 0.0F, 7.0F, 1.0F, 1.0F, 0.0F, false);
-		root.texOffs(9, 0).addBox(-5.0F, -21.0F, 0.0F, 9.0F, 1.0F, 1.0F, 0.0F, false);
+		root = new ModelRenderer(this);
+		root.setPos(0.0F, 0.0F, 0.0F);
+		root.texOffs(16, 26).addBox(-1.0F, -8.0F, 0.0F, 1.0F, 8.0F, 1.0F, 0.0F, false);
+
+		shaft = new ModelRenderer(this);
+		//shaft.setPos(0.0F, 0.0F, 0.0F);
+		root.addChild(shaft);
+		shaft.texOffs(12, 10).addBox(-1.0F, -29.0F, 1.0F, 1.0F, 20.0F, 1.0F, 0.0F, false);
+		shaft.texOffs(8, 10).addBox(-1.0F, -29.0F, -1.0F, 1.0F, 20.0F, 1.0F, 0.0F, false);
+		shaft.texOffs(0, 4).addBox(-2.0F, -29.0F, 0.0F, 3.0F, 20.0F, 1.0F, 0.0F, false);
+
+		base = new ModelRenderer(this);
+		//base.setPos(0.0F, 0.0F, 0.0F);
+		root.addChild(base);
+		base.texOffs(28, 8).addBox(-2.0F, 0.0F, 0.0F, 3.0F, 1.0F, 1.0F, 0.0F, false);
+		base.texOffs(8, 6).addBox(-1.0F, 0.0F, -1.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
+		base.texOffs(8, 4).addBox(-1.0F, 0.0F, 1.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
+
+		stand = new ModelRenderer(this);
+		//stand.setPos(0.0F, 0.0F, 0.0F);
+		root.addChild(stand);
+		stand.texOffs(8, 4).addBox(-3.0F, -9.0F, -2.0F, 5.0F, 1.0F, 5.0F, 0.0F, false);
+		stand.texOffs(23, 4).addBox(-6.0F, -9.0F, -1.0F, 3.0F, 1.0F, 3.0F, 0.0F, false);
+		stand.texOffs(16, 22).addBox(2.0F, -9.0F, -1.0F, 3.0F, 1.0F, 3.0F, 0.0F, false);
+		stand.texOffs(16, 18).addBox(-3.0F, -8.0F, -1.0F, 5.0F, 1.0F, 3.0F, 0.0F, false);
+
+		handle = new ModelRenderer(this);
+		handle.setPos(0.0F, 9.0F, 0.0F);
+		root.addChild(handle);
+		handle.texOffs(0, 2).addBox(-8.0F, -40.0F, 0.0F, 15.0F, 1.0F, 1.0F, 0.0F, false);
+		handle.texOffs(0, 0).addBox(-8.0F, -41.0F, 0.0F, 15.0F, 1.0F, 1.0F, 0.0F, false);
+		handle.texOffs(16, 14).addBox(-3.0F, -42.0F, -1.0F, 5.0F, 1.0F, 3.0F, 0.0F, false);
+		handle.texOffs(16, 10).addBox(-3.0F, -39.0F, -1.0F, 5.0F, 1.0F, 3.0F, 0.0F, false);
+		handle.texOffs(25, 23).addBox(1.0F, -41.0F, -1.0F, 1.0F, 2.0F, 3.0F, 0.0F, false);
+		handle.texOffs(0, 25).addBox(-3.0F, -41.0F, -1.0F, 1.0F, 2.0F, 3.0F, 0.0F, false);
 	}
 
 	@Override
